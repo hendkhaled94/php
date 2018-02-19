@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="This is social network html5 template available in themeforest......" />
+  <meta name="keywords" content="Social Network, Social Media, Make Friends, Newsfeed, Profile Page" />
+  <meta name="robots" content="index, follow" />
+  <title>News Feed | Check what your friends are doing</title>
+
+  <!-- Stylesheets
+    ================================================= -->
+  <link rel="stylesheet" href="../templates/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="../templates/css/style.css" />
+  <link rel="stylesheet" href="../templates/css/ionicons.min.css" />
+  <link rel="stylesheet" href="../templates/css/font-awesome.min.css" />
+  <link href="../templates/css/emoji.css" rel="stylesheet">
+
+  <!--Google Font-->
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700,700i" rel="stylesheet">
+
+  <!--Favicon-->
+  <link rel="shortcut icon" type="image/png" href="../templates/images/fav.png" />
+</head>
+
+<body>
+
+  <!-- Header
+    ================================================= -->
+  <header id="header">
+    <nav class="navbar navbar-default navbar-fixed-top menu">
+      <div class="container">
+
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+            aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index-register.html">
+            <img src="images/logo.png" alt="logo" />
+          </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-right main-menu">
+            <li class="dropdown">
+              <a href="../php/newsfeed.php" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Newsfeed </a>
+
+            </li>
+            <li class="dropdown">
+              <a href="../php/timeline.php" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Timeline</a>
+              
+            </li>
+
+            <li class="dropdown">
+              <a href="contact.html">Contact</a>
+            </li>
+          </ul>
+
+        </div>
+        <!-- /.navbar-collapse -->
+      </div>
+      <!-- /.container -->
+    </nav>
+  </header>
+  <!--Header End-->
+
+  <div id="page-contents">
+    <div class="container">
+      <div class="row">
+
+        <!-- Newsfeed Common Side Bar Left
+          ================================================= -->
+        <div class="col-md-3 static">
+          <div class="profile-card">
+            <img src="../images/{{user.userimage}}" alt="user" class="profile-photo" />
+            <h5>
+              <a href="../php/timeline.php" class="text-white">{{user.first_name}} {{user.last_name}}</a>
+            </h5>
+          </div>
+          <!--profile card ends-->
+          <!--news-feed links ends-->
+          <div id="chat-block">
+
+
+          </div>
+          <!--chat block ends-->
+        </div>
+
+        <div class="col-md-7">
+
+          <!-- Post Create Box
+            ================================================= -->
+          <div class="create-post" style="margin-left:-50px">
+            <div class="row">
+              <div class="col-md-5 col-sm-5">
+                <div class="tools">
+                  <a href="../php/createPost.php"><button class="btn btn-primary pull-right">write a post</button></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Post Create Box End-->
+
+          <!-- Post Content
+            ================================================= -->
+          {%for post in posts%}
+           {%for use in users%}
+            {%if post.user_id==use.user_id%}
+          <div class="post-content">
+            <img src="../images/{{post.coverimage}}" alt="post-image" class="img-responsive post-image" />
+            <div class="post-container">
+              <img src="../images/{{use.userimage}}" alt="user" class="profile-photo-md pull-left" />
+              <div class="post-detail">
+                <div class="user-info">
+                  <h5>
+                    {{use.first_name}} {{use.last_name}}
+                  </h5>
+                  <h6><a href="../php/post.php?post_id={{post.post_id}}&user_id={{use.user_id}}" class="profile-link">{{post.title}}</a></h6>
+                  <p class="text-muted">Published {{post.publish_time.format('Y-m-d h:m:s')}}</p>
+                </div>
+                <div class="line-divider"></div>
+                <div class="post-text">
+                  <p>{{post.content}}</p>
+                </div>
+                <div class="line-divider"></div>
+                {%for com in comments%}
+                 {%for c in com%} 
+                 {%if c.post_id==post.post_id%} 
+                 {%for u in users%}
+                  {%if u.user_id==c.user_id%}
+                <div class="post-comment">
+                  <img src="../images/{{u.userimage}}" alt="" class="profile-photo-sm" />
+                  <p>
+                    <a  class="profile-link">{{u.first_name}} {{u.last_name}}</a>
+                    {{c.content}}  </p>
+                </div>
+                {%endif%} {%endfor%} {%endif%} {%endfor%} {%endfor%}
+                <div class="post-comment">
+                  <img src="../images/{{user.userimage}}" alt="" class="profile-photo-sm" />
+                  <form method="post" action="../php/comment.php?location=newsfeed&post={{post.post_id}}">
+                  <input type="text" class="form-control" name="comment_text" placeholder="Post a comment">
+                    <input type="submit" value="comment"/>
+                </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          {%endif%} {%endfor%} {%endfor%}
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer
+    ================================================= -->
+    <footer id="footer">
+      <div class="container">
+        <div class="row">
+          <div class="footer-wrapper">
+            <div class="col-md-3 col-sm-3">
+              <a href="">
+                <img src="images/logo-black.png" alt="" class="footer-logo" />
+              </a>
+              <ul class="list-inline social-icons">
+                <li>
+                  <a href="#">
+                    <i class="icon ion-social-facebook"></i>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <i class="icon ion-social-twitter"></i>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <i class="icon ion-social-googleplus"></i>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <i class="icon ion-social-pinterest"></i>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <i class="icon ion-social-linkedin"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="col-md-2 col-sm-2">
+              <h5>For individuals</h5>
+              <ul class="footer-links">
+                <li>
+                  <a href="">Signup</a>
+                </li>
+                <li>
+                  <a href="">login</a>
+                </li>
+            </div>
+            <div class="col-md-3 col-sm-3">
+              <h5>Contact Us</h5>
+              <ul class="contact">
+                <li>
+                  <i class="icon ion-ios-telephone-outline"></i>+1 (234) 222 0754</li>
+                <li>
+                  <i class="icon ion-ios-email-outline"></i>info@friends-team.com</li>
+                <li>
+                  <i class="icon ion-ios-location-outline"></i>iti mansoura branch , EGY</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>Friends Team © 2018. All rights reserved</p>
+      </div>
+    </footer>
+
+    <!--preloader-->
+    <!--
+    <div id="spinner-wrapper">
+      <div class="spinner"></div>
+    </div>
+  -->
+    <!-- Scripts
+    ================================================= -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTMXfmDn0VlqWIyoOxK8997L-amWbUPiQ&callback=initMap"></script>
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.sticky-kit.min.js"></script>
+    <script src="js/jquery.scrollbar.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>

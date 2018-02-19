@@ -1,0 +1,8 @@
+{
+    "require":{
+        "php-activerecord/php-activerecord":"*",
+        "twig/twig": "~2.0",
+	"symfony/asset":"*"
+	
+    }
+}

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="This is social network html5 template available in themeforest......" />
+		<meta name="keywords" content="Social Network, Social Media, Make Friends, Newsfeed, Profile Page" />
+		<meta name="robots" content="index, follow" />
+		<title>News Feed | Check what your friends are doing</title>
+
+    <!-- Stylesheets
+    ================================================= -->
+		<link rel="stylesheet" href="../templates/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="../templates/css/style.css" />
+    <link rel="stylesheet" href="../templates/css/ionicons.min.css" />
+    <link rel="stylesheet" href="../templates/css/font-awesome.min.css" />
+    <link href="../templates/css/emoji.css" rel="stylesheet">
+    
+    <!--Google Font-->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700,700i" rel="stylesheet">
+    
+    <!--Favicon-->
+    <link rel="shortcut icon" type="image/png" href="images/fav.png"/>
+    <style>
+    <style>
+body {font-family: Arial, Helvetica, sans-serif;}
+
+input[type=text], select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+}
+
+input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+.container1 {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+</style>
+    </style>
+	</head>
+  <body>
+
+    <!-- Header
+    ================================================= -->
+		<header id="header">
+      <nav class="navbar navbar-default navbar-fixed-top menu">
+        <div class="container">
+  
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+              aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index-register.html">
+              <img src="images/logo.png" alt="logo" />
+            </a>
+          </div>
+  
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right main-menu">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Home </span>
+                </a>
+  
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Newsfeed </a>
+  
+              </li>
+              <li class="dropdown">
+                <a href="../php/timeline.php" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Timeline</a>
+                <ul class="dropdown-menu login">
+                  <li>
+                    <a href="timeline.html">Timeline</a>
+                  </li>
+                  <li>
+                    <a href="edit-profile-basic.html">Edit: Basic Info</a>
+                  </li>
+  
+                </ul>
+              </li>
+  
+              <li class="dropdown">
+                <a href="contact.html">Contact</a>
+              </li>
+            </ul>
+  
+          </div>
+          <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+      </nav>
+    </header>
+    <!--Header End-->
+
+    <div id="page-contents">
+    	<div class="container">
+    		<div class="row">
+
+          <!-- Newsfeed Common Side Bar Left
+          ================================================= -->
+    			<div class="col-md-3 static">
+            <div class="profile-card">
+            	<img src="../images/{{user.userimage}}" alt="user" class="profile-photo" />
+            	<h5><a class="text-white">{{user.first_name}} {{user.last_name}}</a></h5>
+            </div><!--profile card ends-->
+
+            <div id="chat-block">
+
+              <!-- <div class="title">Chat online</div> -->
+             
+            </div><!--chat block ends-->
+          </div>
+          
+    			<div class="col-md-7">
+
+            <!-- Post Create Box
+            ================================================= -->
+            <!-- <div class="create-post"> -->
+                <h3>Post Form</h3>
+                
+                <div class="container1">
+                  <form action="../php/insertPost.php" method="post">
+                    <label for="fname">Title</label>
+                    <input type="text" id="fname" name="title" placeholder="enter title..">
+                
+                    <label for="lname">Cover Image</label><br>
+                    <input type="file" id="lname" name="image" placeholder="enter post cover..">
+                
+                    <label for="country">Category</label>
+                    <select id="country" name="category">
+                      <option>Select category</option>
+                      {%for catigory in categories%}
+                      <option value="{{catigory.name}}">{{catigory.name}}</option>
+                      {%endfor%}
+                    </select>
+                
+                    <label for="subject">Content</label><br>
+                    <textarea id="subject" name="content" placeholder="Write something.." style="height:200px"></textarea>
+                
+                    <input type="submit" value="Publish">
+                  </form>
+                </div>
+                
+            <!-- </div> Post Create Box End-->
+
+          <!-- Newsfeed Common Side Bar Right
+          ================================================= -->
+    			<div class="col-md-2 static">
+            <div class="suggestions" id="sticky-sidebar">
+            </div>
+          </div>
+    		</div>
+    	</div>
+    </div>
+
+    <!-- Footer
+    ================================================= -->
+    <footer id="footer">
+      <div class="container">
+      	<div class="row">
+          <div class="footer-wrapper">
+            <div class="col-md-3 col-sm-3">
+              <a href=""><img src="images/logo-black.png" alt="" class="footer-logo" /></a>
+              <ul class="list-inline social-icons">
+              	<li><a href="#"><i class="icon ion-social-facebook"></i></a></li>
+              	<li><a href="#"><i class="icon ion-social-twitter"></i></a></li>
+              	<li><a href="#"><i class="icon ion-social-googleplus"></i></a></li>
+              	<li><a href="#"><i class="icon ion-social-pinterest"></i></a></li>
+              	<li><a href="#"><i class="icon ion-social-linkedin"></i></a></li>
+              </ul>
+            </div>
+            <div class="col-md-2 col-sm-2">
+              <h5>For individuals</h5>
+              <ul class="footer-links">
+                <li><a href="">Signup</a></li>
+                <li><a href="">login</a></li>
+                <li><a href="">Explore</a></li>
+                <li><a href="">Finder app</a></li>
+                <li><a href="">Features</a></li>
+                <li><a href="">Language settings</a></li>
+              </ul>
+            </div>
+            <div class="col-md-2 col-sm-2">
+              <h5>For businesses</h5>
+              <ul class="footer-links">
+                <li><a href="">Business signup</a></li>
+                <li><a href="">Business login</a></li>
+                <li><a href="">Benefits</a></li>
+                <li><a href="">Resources</a></li>
+                <li><a href="">Advertise</a></li>
+                <li><a href="">Setup</a></li>
+              </ul>
+            </div>
+            <div class="col-md-2 col-sm-2">
+              <h5>About</h5>
+              <ul class="footer-links">
+                <li><a href="">About us</a></li>
+                <li><a href="">Contact us</a></li>
+                <li><a href="">Privacy Policy</a></li>
+                <li><a href="">Terms</a></li>
+                <li><a href="">Help</a></li>
+              </ul>
+            </div>
+            <div class="col-md-3 col-sm-3">
+              <h5>Contact Us</h5>
+              <ul class="contact">
+                <li><i class="icon ion-ios-telephone-outline"></i>+1 (234) 222 0754</li>
+                <li><i class="icon ion-ios-email-outline"></i>info@thunder-team.com</li>
+                <li><i class="icon ion-ios-location-outline"></i>228 Park Ave S NY, USA</li>
+              </ul>
+            </div>
+          </div>
+      	</div>
+      </div>
+      <div class="copyright">
+        <p>Thunder Team © 2016. All rights reserved</p>
+      </div>
+		</footer>
+    
+    <!--preloader-->
+   <!-- <div id="spinner-wrapper">
+      <div class="spinner"></div>
+    </div>
+  -->
+    <!-- Scripts
+    ================================================= -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTMXfmDn0VlqWIyoOxK8997L-amWbUPiQ&callback=initMap"></script>
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.sticky-kit.min.js"></script>
+    <script src="js/jquery.scrollbar.min.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>
